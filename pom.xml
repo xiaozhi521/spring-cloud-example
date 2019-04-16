@@ -11,8 +11,8 @@
 
     <modules>
         <module>spring-cloud-example-api</module>
-        <module>spring-cloud-example-consumer-user-80</module>
         <module>spring-cloud-example-provider-person-6001</module>
+        <module>spring-cloud-example-consumer-person-80</module>
     </modules>
 
     <properties>
