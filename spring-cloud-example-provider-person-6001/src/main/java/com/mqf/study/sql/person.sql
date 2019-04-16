@@ -14,7 +14,7 @@ CREATE TABLE person
 	PRIMARY KEY (id)
 );
 
-DELETE FROM user;
+DELETE FROM person;
 
 INSERT INTO person (id, name, age, email) VALUES
 (1, 'Jone', 18, 'test1@baomidou.com'),

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.mqf.study.dao.PersonDao">
-
 	<select id="findById" resultType="Person" parameterType="Long">
 		select id,name,age,email from person where id=#{id};
 	</select>
@@ -13,7 +11,6 @@
 	<insert id="addPerson" parameterType="Person">
 		INSERT INTO person(name,age,email) VALUES(#{name},#{age},#{email});
 	</insert>
-
 </mapper>
  
 

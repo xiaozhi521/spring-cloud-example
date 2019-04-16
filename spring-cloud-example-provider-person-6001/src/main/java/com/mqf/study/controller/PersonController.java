@@ -13,30 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
-public class PersonController
-{
+public class PersonController {
 	@Autowired
 	private PersonService service;
 //	@Autowired
 //	private DiscoveryClient client;
 
 	@RequestMapping(value = "/person/add", method = RequestMethod.POST)
-	public boolean add(@RequestBody Person person)
-	{
+	public boolean add(@RequestBody Person person) {
 		return service.add(person);
 	}
 
 	@RequestMapping(value = "/person/get/{id}", method = RequestMethod.GET)
-	public Person get(@PathVariable("id") Long id)
-	{
+	public Person get(@PathVariable("id") Long id) {
 		return service.get(id);
 	}
 
 	@RequestMapping(value = "/person/list", method = RequestMethod.GET)
-	public List<Person> list()
-	{
+	public List<Person> list() {
 		return service.list();
 	}
 

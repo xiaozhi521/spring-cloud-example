@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-cloud-example-consumer-person-80</artifactId>
-    <description>部门微服务消费者</description>
+    <description>人员微服务消费者</description>
 
     <dependencies>
         <dependency><!-- 自己定义的api -->
@@ -45,6 +45,4 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>

@@ -8,10 +8,8 @@ import com.mqf.study.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class DeptServiceImpl implements PersonService
-{
+public class DeptServiceImpl implements PersonService {
 	@Autowired
 	private PersonDao dao;
 

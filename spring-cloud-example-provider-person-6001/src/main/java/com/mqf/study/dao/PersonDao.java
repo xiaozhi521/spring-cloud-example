@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PersonDao {
-    public boolean addPerson(Person dept);
+    public boolean addPerson(Person person);
 
     public Person findById(Long id);
 

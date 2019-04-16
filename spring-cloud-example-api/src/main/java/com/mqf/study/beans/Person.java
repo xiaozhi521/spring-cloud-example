@@ -31,6 +31,15 @@ public class Person implements Serializable {
      */
     private String email;
 
+    public Person() {
+    }
+
+    public Person(String name, Integer age, String email) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

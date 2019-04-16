@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2019/4/15 17:23
  */
 @SpringBootApplication
-public class UserProvider8001_APP {
+public class PersonProvider6001_APP {
     public static void main(String[] args) {
-        SpringApplication.run(UserProvider8001_APP.class,args);
+        SpringApplication.run(PersonProvider6001_APP.class,args);
     }
 }
