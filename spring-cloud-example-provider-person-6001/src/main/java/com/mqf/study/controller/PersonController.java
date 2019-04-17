@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonController {
 	@Autowired
 	private PersonService service;
-//	@Autowired
-//	private DiscoveryClient client;
+	@Autowired
+	private DiscoveryClient client;
 
 	@RequestMapping(value = "/person/add", method = RequestMethod.POST)
 	public boolean add(@RequestBody Person person) {
@@ -35,21 +35,19 @@ public class PersonController {
 		return service.list();
 	}
 
-	
-//	@Autowired
-//	private DiscoveryClient client;
-//	@RequestMapping(value = "/person/discovery", method = RequestMethod.GET)
-//	public Object discovery()
-//	{
-//		List<String> list = client.getServices();
-//		System.out.println("**********" + list);
-//
-//		List<ServiceInstance> srvList = client.getInstances("MICROSERVICECLOUD-DEPT");
-//		for (ServiceInstance element : srvList) {
-//			System.out.println(element.getServiceId() + "\t" + element.getHost() + "\t" + element.getPort() + "\t"
-//					+ element.getUri());
-//		}
-//		return this.client;
-//	}
+
+	@RequestMapping(value = "/person/discovery", method = RequestMethod.GET)
+	public Object discovery()
+	{
+		List<String> list = client.getServices();
+		System.out.println("**********" + list);
+
+		List<ServiceInstance> srvList = client.getInstances("SPRING-CLOUD-EXAMPLE-PERSON");
+		for (ServiceInstance element : srvList) {
+			System.out.println(element.getServiceId() + "\t" + element.getHost() + "\t" + element.getPort() + "\t"
+					+ element.getUri());
+		}
+		return this.client;
+	}
 
 }

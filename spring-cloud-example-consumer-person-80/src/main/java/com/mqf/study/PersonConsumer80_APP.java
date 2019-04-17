@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @ClassName PersonConsumer80_APP
  * @Description TODO
- * @Author li hongzhi
+ * @Author mqf
  * @Date 2019/4/16 11:57
  */
 @SpringBootApplication

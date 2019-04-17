@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @ClassName ConfigBean
  * @Description TODO
- * @Author li hongzhi
+ * @Author mqf
  * @Date 2019/4/16 9:35
  */
 @Configuration
