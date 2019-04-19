@@ -1,5 +1,5 @@
 -- 不存在就执行
-CREATE DATABASE cloudBD01;
+CREATE DATABASE cloudBD03;
 
 
 DROP TABLE IF EXISTS person;

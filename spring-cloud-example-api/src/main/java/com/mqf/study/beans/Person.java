@@ -31,13 +31,23 @@ public class Person implements Serializable {
      */
     private String email;
 
+    /**
+     * 数据库
+     */
+    private String dbSource;
+
+
+
     public Person() {
     }
+    
 
-    public Person(String name, Integer age, String email) {
+    public Person(Long id, String name, Integer age, String email, String dbSource) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.dbSource = dbSource;
     }
 
     public Long getId() {
@@ -70,14 +80,22 @@ public class Person implements Serializable {
     }
 
 
+    public String getDbSource() {
+        return dbSource;
+    }
+
+    public void setDbSource(String dbSource) {
+        this.dbSource = dbSource;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", name=" + name +
+                ", name='" + name + '\'' +
                 ", age=" + age +
-                ", email=" + email +
-                "}";
+                ", email='" + email + '\'' +
+                ", dbSource='" + dbSource + '\'' +
+                '}';
     }
-
 }

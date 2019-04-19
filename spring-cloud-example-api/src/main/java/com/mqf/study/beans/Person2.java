@@ -40,4 +40,9 @@ public class Person2 implements Serializable {
      * 邮箱
      */
     private String email;
+
+    /**
+     * 数据库
+     */
+    private String dbSource;
 }

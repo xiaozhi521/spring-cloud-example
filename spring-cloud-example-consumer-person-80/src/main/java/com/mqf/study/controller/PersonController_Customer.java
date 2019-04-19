@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class PersonController_Customer {
 
-	private static final String REST_URL_PREFIX = "http://localhost:6001";
-//	private static final String REST_URL_PREFIX = "http://MICROSERVICECLOUD-DEPT";
+//	private static final String REST_URL_PREFIX = "http://localhost:6001";
+	private static final String REST_URL_PREFIX = "http://SPRING-CLOUD-EXAMPLE-PERSON";
 
 	/**
 	 * 使用 使用restTemplate访问restful接口非常的简单粗暴无脑。 (url, requestMap,

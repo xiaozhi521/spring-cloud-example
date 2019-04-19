@@ -15,6 +15,8 @@
         <module>spring-cloud-example-consumer-person-80</module>
         <module>spring-cloud-example-eureka-7001</module>
         <module>spring-cloud-example-eureka-7002</module>
+        <module>spring-cloud-example-provider-person-6002</module>
+        <module>spring-cloud-example-provider-person-6003</module>
     </modules>
 
     <properties>
