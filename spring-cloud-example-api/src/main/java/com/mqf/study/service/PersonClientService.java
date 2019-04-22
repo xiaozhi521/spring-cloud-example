@@ -2,14 +2,17 @@ package com.mqf.study.service;
 
 import com.mqf.study.beans.Person;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient("SPRING-CLOUD-EXAMPLE-PERSON")
+/**
+ *  一个实现了FallbackFactory接口的类 PersonClientServiceFallBackFactory
+ */
+//@FeignClient("SPRING-CLOUD-EXAMPLE-PERSON")
+@FeignClient(value = "SPRING-CLOUD-EXAMPLE-PERSON",fallbackFactory=PersonClientServiceFallBackFactory.class)
 public interface PersonClientService {
     @RequestMapping(value = "/person/add", method = RequestMethod.POST)
     public boolean add(Person person);
