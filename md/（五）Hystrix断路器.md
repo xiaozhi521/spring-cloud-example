@@ -344,5 +344,160 @@ public interface PersonClientService {
 
  
 
-#### 四、服务监控hystrixDashboard
+#### 四、服务监控 hystrix Dashboard
 
+##### 1、概述
+
+除了隔离依赖服务的调用外，Hystrix还提供了`准实时的调用监控（Hystrix Dashboard）`，Hystrix 会持续地记录所有通过Hystrix发起请求的执行信息，并以统计报表和图形的形式展示给用户，包括每秒执行多少请求，多少成功，多少失败等。 Netflix 通过`hystrix-metrics-event-stream` 项目实现了对以上指标的监控。Spring Cloud 也提供了 Hystrix Dashboard 的整合，对监控内容转化成可视化界面。
+
+##### 2、步骤
+
+###### 2.1、新建工程 spring-cloud-example-consumer-hystrix-dashboard
+
+###### 2.2、pom.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-cloud-example</artifactId>
+        <groupId>com.mqf.study</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-cloud-example-consumer-hystrix-dashboard</artifactId>
+
+    <dependencies>
+        <!-- 自己定义的api -->
+        <dependency>
+            <groupId>com.mqf.study</groupId>
+            <artifactId>spring-cloud-example-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- 修改后立即生效，热部署 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <!-- Ribbon相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <!-- feign相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <!-- hystrix和 hystrix-dashboard相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
+```
+
+
+
+###### 2.3、yaml
+
+```yaml
+server:
+  port: 9001
+```
+
+
+
+###### 2.4、新建主启动类 `PersonConsumer_Dashboard_App` 并且添加 `@EnableHystrixDashboard`注解
+
+```java
+package com.mqf.study;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+
+@SpringBootApplication
+@EnableHystrixDashboard
+public class PersonConsumer_Dashboard_App {
+    public static void main(String[] args) {
+        SpringApplication.run(PersonConsumer_Dashboard_App.class,args);
+    }
+}
+```
+
+
+
+###### 2.5、`所有 Provider 微服务提供类（6001、6002、6003）都需要监控依赖配置`
+
+```xml
+<!-- actuator监控信息完善 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+
+
+###### 2.6、启动  spring-cloud-example-consumer-hystrix-dashboard 改微服务监控消费端
+
+-   <http://localhost:9001/hystrix.stream> 
+
+###### 2.7、启动 eureka 集群
+
+###### 2.8、启动 spring-cloud-example-provider-person-hystrix-6001
+
+-    http://localhost:6001/person/get/1
+-   http://localhost:6001/hystrix.stream
+
+###### 2.9、启动的相关服务工程
+
+###### 2.10、监控测试
+
+-   delay : 该参数用来控制服务器上轮询监控信息的延迟时间，默认 2000 毫秒，可以通过配置该属性来降低客户端的网络和CPU消耗
+
+-   Title：该参数对应了头部标题 Hystrix Stream 之后的内容，默认会使用具体监控实例的URL，可以通过配置该信息来展示更合适的标题。
+
+-   如何看
+
+    -   7色
+
+    -   1圈
+
+        >   实心圈：共有两种含义。他通过颜色的变化代表了实例的健康程度。他的健康从绿色<黄色<橙色<红色递减。
+        >
+        >   该实心圆除了颜色变化外，他的大小也会根据实例的请求流量发生变化，流量越大该实心圆越大。所以通过该实心圆的展示，就可以在大量的实例中快速的发现**故障实例**和**高压力实例**。
+
+    -   1线
+
+        >   曲线：用来记录2分钟内流量的相对变化，可以通过他来观察到流量的上升和下降的趋势。
+
+    -   整图说明
+
+        ![https://img-blog.csdnimg.cn/20190423120448390.jpg ]( )
