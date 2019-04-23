@@ -21,6 +21,7 @@
         <module>spring-cloud-example-provider-person-hystrix-6001</module>
         <module>spring-cloud-example-eureka-7003</module>
         <module>spring-cloud-example-consumer-hystrix-dashboard</module>
+        <module>spring-cloud-example-zuul-gateway-9527</module>
     </modules>
 
     <properties>
