@@ -22,6 +22,7 @@
         <module>spring-cloud-example-eureka-7003</module>
         <module>spring-cloud-example-consumer-hystrix-dashboard</module>
         <module>spring-cloud-example-zuul-gateway-9527</module>
+        <module>spring-cloud-example-config-3344</module>
     </modules>
 
     <properties>
