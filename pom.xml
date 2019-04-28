@@ -23,6 +23,7 @@
         <module>spring-cloud-example-consumer-hystrix-dashboard</module>
         <module>spring-cloud-example-zuul-gateway-9527</module>
         <module>spring-cloud-example-config-3344</module>
+        <module>spring-cloud-example-config-client-3355</module>
     </modules>
 
     <properties>

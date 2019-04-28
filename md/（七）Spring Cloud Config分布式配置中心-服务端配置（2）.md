@@ -65,7 +65,19 @@ spring:
 -   启动 `spring-cloud-example-config-3344`
 -   http://config-3344.com:3344/application-dev.yml
 
-#### 12、配置读取规则
+#### 12、[配置读取规则](https://cloud.spring.io/spring-cloud-static/spring-cloud-config/2.1.0.RELEASE/single/spring-cloud-config.html#_quick_start )
 
-#### 13、
+-   <https://cloud.spring.io/spring-cloud-static/spring-cloud-config/2.1.0.RELEASE/single/spring-cloud-config.html#_quick_start> 
+
+-   /{application}-{profile}.yml
+    -   http://config-3344.com:3344/application-dev.yml
+    -   http://config-3344.com:3344/application-test.yml
+-   /{application}/{profile}[/{lable}].yml
+    -   http://config-3344.com:3344/application/dev/master
+    -   http://config-3344.com:3344/application/test/master
+-   /{lable}/{application}-{profile}.yml
+    -   http://config-3344.com:3344/master/application-dev
+    -   http://config-3344.com:3344/master/application-test
+
+#### 13、成功实现了用 Spring Cloud Config 通过GitHub 获取配置信息
 
