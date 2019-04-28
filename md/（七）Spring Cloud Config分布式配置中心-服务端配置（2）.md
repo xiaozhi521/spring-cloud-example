@@ -63,7 +63,7 @@ spring:
 #### 11、测试通过 Config微服务是否可以从GitHub 上获取配置内容
 
 -   启动 `spring-cloud-example-config-3344`
--   <http://config-3344.com:3344/application-dev.yml> 
+-   http://config-3344.com:3344/application-dev.yml
 
 #### 12、配置读取规则
 
