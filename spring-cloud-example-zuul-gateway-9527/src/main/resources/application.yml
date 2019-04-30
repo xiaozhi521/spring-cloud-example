@@ -19,8 +19,8 @@ zuul:
   prefix: /mqf
   ignored-services: "*"
   routes:
-    mydept.serviceId: spring-cloud-example-person
-    mydept.path: /myperson/**
+    myperson.serviceId: spring-cloud-example-person
+    myperson.path: /myperson/**
  
 info:
   app.name: spring-cloud-example
