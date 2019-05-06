@@ -8,6 +8,20 @@ spring:
     config:
       server:
         git:
-          uri:  git@github.com:xiaozhi521/spring-cloud-example-config.git #GitHub上面的git仓库名字
- 
+          uri:  git@github.com:xiaozhi521/spring-cloud-example-config.git   #GitHub上面的git仓库名字
+#          uri:  https://github.com/xiaozhi521/spring-cloud-example-config.git   #GitHub上面的git仓库名字
+#          username: username
+#          password: password
+        health:                 #健康监测   http://localhost:3344/health
+          repositories:
+            check:
+              name: spring-cloud-example-config  #应用名
+              lable: master     #分支名
+              profiles: default #环境名
+          enable: true         #关闭健康监测
+  security:
+    user:
+      name: user
+      password: 37cc5635-559b-4e6f-b633-7e932b813f73
+
 
