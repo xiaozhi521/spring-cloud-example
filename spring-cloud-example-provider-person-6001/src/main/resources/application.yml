@@ -21,6 +21,10 @@ spring:
       initial-size: 5                                       # 初始化连接数
       max-total: 5                                          # 最大连接数
       max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+#  cloud:
+#    loadbalancer:
+#      retry:
+#        enabled: true #开启重试机制 源码：LoadBalancerRetryProperties.java
       
 eureka:
   client: #客户端注册进eureka服务列表内
