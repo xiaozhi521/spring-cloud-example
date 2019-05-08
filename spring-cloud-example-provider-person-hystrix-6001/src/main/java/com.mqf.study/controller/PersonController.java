@@ -3,6 +3,7 @@ package com.mqf.study.controller;
 import com.mqf.study.beans.Person;
 import com.mqf.study.service.PersonService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheRemove;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class PersonController {
 	 *  @CacheResult  标记这是一个缓存方法，结果会被缓存;该注解用来标记请求命令返回的结果应该被缓存，它必须与@HystrixCommand注解结合使用
 	 *  @HystrixCommand
 	 *		fallbackMethod : 服务降级；
+	 *						@HystrixCommand注解修饰的函数的回调函数，
+	 *						@HystrixCommand修饰的函数必须和这个回调函数定义在同一个类中，因为定义在了同一个类中，
+	 *						所以fackback method可以是public/private均可。
 	 *						如果要获取触发服务降级的具体异常内容，只需要在 fallback 实现方法的参数中增加 Throwable e 对象的定义
 	 *		ignoreExceptions：忽略指定异常类型功能
 	 *
@@ -36,16 +40,36 @@ public class PersonController {
 	 * 			因为除了根据组能实现统计之外， Hystrix 命令默认的线程划分也是根据命令分组来实现的。
 	 * 	 		默认情况下， Hystrix 会让相同组名的命令使用同一个线程池，
 	 * 	 	  	所以我们需要在创建 Hystrix 命令时为其指定命令组名来实现默认的线程池划分。
-	 * 	   	commandKey ： 命令名称
-	 * 	 	groupKey ： 分组划分
-	 * 	 	threadPoolKey ： 线程池划分
+	 * 	   	commandKey ： 配置全局唯一标识服务的名称，
+	 * 	   				比如，库存系统有一个获取库存服务，那么就可以为这个服务起一个名字来唯一识别该服务;
+	 * 	   					如果不配置，则默认是@HystrixCommand注解修饰的函数的函数名。
+	 *
+	 * 	 	groupKey ： 一个比较重要的注解，配置全局唯一标识服务分组的名称，比如，库存系统就是一个服务分组。
+	 * 	 			通过设置分组，Hystrix会根据组来组织和统计命令的告、仪表盘等信息。Hystrix命令默认的线程划分也是根据命令组来实现。
+	 * 	 			默认情况下，Hystrix会让相同组名的命令使用同一个线程池，所以我们需要在创建Hystrix命令时为其指定命令组来实现默认的线程池划分。
+	 * 	 			此外，Hystrix还提供了通过设置threadPoolKey来对线程池进行设置。建议最好设置该参数，使用threadPoolKey来控制线程池组。
+	 *
+	 * 	 	threadPoolKey ： 对线程池进行设定，细粒度的配置，相当于对单个服务的线程池信息进行设置，也可多个服务设置同一个threadPoolKey构成线程组
+	 * 	 	threadPoolProperties : 线程池相关参数设置，具体可以设置哪些参数见 com.netflix.hystrix.HystrixThreadPoolProperties
+	 *		commandProperties : 配置该命令的一些参数，如executionIsolationStrategy配置执行隔离策略，默认是使用线程隔离，也可以配置为THREAD，即线程池隔离。
+	 *				具体可以设置哪些参数见 com.netflix.hystrix.HystrixCommandProperties
 	 *  @param id
 	 *  @return
 	 */
 	@RequestMapping(value = "/person/get/{id}", method = RequestMethod.GET)
 	//一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
 	@HystrixCommand(fallbackMethod = "processHystrix_Get",ignoreExceptions = {NumberFormatException.class},
-			commandKey = "get",groupKey = "personGroup",threadPoolKey = "getPersonThreadPool")
+			commandKey = "get",groupKey = "personGroup",threadPoolKey = "getPersonThreadPool",
+			commandProperties = {
+					@HystrixProperty(name = "execution.isolation.strategy", value="SEMAPHORE")
+			},threadPoolProperties = {
+				@HystrixProperty(name = "coreSize", value = "30"),
+				@HystrixProperty(name = "maxQueueSize", value = "101"),
+				@HystrixProperty(name = "keepAliveTimeMinutes", value = "2"),
+				@HystrixProperty(name = "queueSizeRejectionThreshold", value = "15"),
+				@HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "12"),
+				@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1440")
+		})
 //	@CacheResult(cacheKeyMethod = "getCacheKey")
 	public Person get(@PathVariable("id") Long id) {
 		Person person = service.get(id);
