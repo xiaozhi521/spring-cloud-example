@@ -26,6 +26,9 @@
         <module>spring-cloud-example-config-client-3355</module>
         <module>spring-cloud-example-config-eureka-client-7001</module>
         <module>spring-cloud-example-config-person-client-6001</module>
+        <module>spring-cloud-example-consumer-hystrix-turbine</module>
+        <module>spring-cloud-example-provider-person-hystrix-turbine-6001</module>
+        <module>spring-cloud-example-provider-person-hystrix-turbine-6002</module>
     </modules>
 
     <properties>

@@ -1,0 +1,19 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: hystrix-dashboard-turbine
+
+eureka:
+  client:
+#    register-with-eureka: false
+#    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+turbine:
+  appConfig: SPRING-CLOUD-EXAMPLE-PERSON6001,SPRING-CLOUD-EXAMPLE-PERSON6002
+  aggregator:
+    clusterConfig: default
+    clusterNameExpression: new String("default")
