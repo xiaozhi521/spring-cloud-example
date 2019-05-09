@@ -17,7 +17,7 @@ eureka:
 zuul:
   #ignored-services: spring-cloud-example-person
   prefix: /mqf
-  ignored-services: "*"
+  ignored-services: "*"   #设置 一 个服务名匹配表达式来定义不自动创建路由的规则
   routes:
     myperson.serviceId: spring-cloud-example-person
     myperson.path: /myperson/**
