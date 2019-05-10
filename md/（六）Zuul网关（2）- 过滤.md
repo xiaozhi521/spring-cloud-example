@@ -111,6 +111,19 @@ public class Zuul_9527_StartSpringCloudApp {
 -   不用路由： <http://localhost:6001/person/get/1> 
 -   启用路由： http://myzuul.com:9527/spring-cloud-example-person/person/get/2
 
+#### 五、禁用过滤器
+ 在Zuul中特别提供了 一 个参数来禁用指定的过滤器，该参数的配置格式如下：
+ >  zuul.<SimpleClassName>.<filterType>.disable = true
+ - <SimpleClassName>代表过滤器的类名,比如我的过滤器类名为 AccessFilter;
+ - ＜filterType>代表过滤器类型， 比如过滤器 AccessFilter 的过滤器类型 pre
+
+ ```yaml
+ zuul:
+  accessFilter:
+    pre:
+      disable: true     # 禁用过滤器
+ ```
+该参数配置除了可以对自定义的过滤器进行禁用配置之外， 很多时候可以用它来禁用Spring Cloud Zuul中默认定义的核心过滤器。 这样我们就可以抛开Spring Cloud Zuul自带的那套核心过滤器， 实现一套更符合我们实际需求的处理机制。
 
 
 #### 五、小结 （用作前端与服务短的交互）

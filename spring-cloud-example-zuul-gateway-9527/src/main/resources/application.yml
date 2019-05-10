@@ -13,8 +13,14 @@ eureka:
     instance-id: gateway-9527.com
     prefer-ip-address: true 
  
- 
+ #在Zuul中特别提供了 一 个参数来禁用指定的过滤器，该参数的配置格式如下：
+ #zuul.<SimpleClassName>.<filterType>.disable = true
+ #<SimpleClassName>代表过滤器的类名,比如我的过滤器类名为 AccessFilter;
+ #＜filterType>代表过滤器类型， 比如过滤器 AccessFilter 的过滤器类型 pre
 zuul:
+#  accessFilter:
+#    pre:
+#      disable: true     # 禁用过滤器
   #ignored-services: spring-cloud-example-person
   prefix: /mqf
   ignored-services: "*"   #设置 一 个服务名匹配表达式来定义不自动创建路由的规则
