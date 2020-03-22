@@ -12,19 +12,28 @@ Eureka 是 Netflix 的一个子模块，也是核心模块之一。Eureka 是一
 
 #### 1、Eureka 基本架构
 
+- 什么是服务注册与发现？
+
 Spring Cloud 封装了 NetFlix 公司开发的 Eureka 模块来`实现服务注册和发现`。
 
 Eureka 采用了C-S 的架构设计。Eureka Server 作为服务注册功能的服务器，它是服务注册中心。
 
-而系统中的其他微服务，使用Eureka的客户端连接到 Eureka Server 并维持心跳连接。这样系统的维护人员就可以通过Eureka Server 来监控系统中各个微服务是否正常运行。Spring Cloud 的一些其它模块（比如Zuul）就可以通过 Eureka Server 来发现系统中的其它微服务，并执行相关的逻辑。
+而系统中的其他微服务，使用Eureka的客户端连接到 Eureka Server 并维持心跳连接。这样系统的维护人员就可以通过Eureka Server 来监控系统中各个微服务是否正常运行。
+
+在服务注册与发现中，有一个注册中心。当服务器启动的时候，会把当前自己服务器的信息，比如：服务地址、通讯地址等以别名方式注册到注册中心上。另一方（消费者|服务提供者），以该别名的方式去注册中心上获取到实际的服务通讯地址、然后再实现本地RPC调用RPC远程调用框架核心设计思想；在于注册中心，因为使用注册中心管理每个服务于服务之间的一个依赖关系（服务治理概念）。
+
+**在任何一个RPC 远程框架中，都会有一个注册中心（存放服务地址相关的信息（接口地址））。**
+
+
+Spring Cloud 的一些其它模块（比如Zuul）就可以通过 Eureka Server 来发现系统中的其它微服务，并执行相关的逻辑。
 
 
 
-Eureka 包含两个组件：`Eureka Server `  和 `Eureka Client`
+**Eureka 包含两个组件：`Eureka Server `  和 `Eureka Client`**
 
 - Eureka Server 提供服务注册服务
 
-  各个节点启动后，会在Eureka Server 中进行注册，这样Eureka Server 中的服务注册表中将会存储所有可用服务节点的信息，服务节点的信息可在界面中直观的看到
+  各个微服务节点通过配置启动后，会在Eureka Server 中进行注册，这样Eureka Server 中的服务注册表中将会存储所有可用服务节点的信息，服务节点的信息可在界面中直观的看到
 
 - Eureka Client
 
