@@ -563,7 +563,8 @@ Spring Cloud 的一些其它模块（比如Zuul）就可以通过 Eureka Server 
 
 > **异常：**`**EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.**`
 >
-> 某时刻某一个微服务不可用了，eureka 不会立刻清理，依旧会对该服务的信息进行保存
+> 导致原因：1、某时刻某一个微服务不可用了，eureka 不会立刻清理，依旧会对该服务的信息进行保存
+> 2、属于CAP里的AP分支
 
 
 
