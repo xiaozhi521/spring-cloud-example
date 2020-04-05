@@ -20,6 +20,12 @@ LB，即负载均衡（Load Balance），在微服务或分布式集群中经常
 >
 > 相应的中间件：dubbo和SpringCloud中均给我们提供了负载均衡，`Spring Cloud 的负载均衡算法可以自定义。`
 
+- Ribbon本地负载均衡客服端 VS Ngnix服务端负载均衡区别
+
+  Ngnix 是服务器负载均衡，客户端所有请求都会交给ngnix，然后由ngnix实现转发请求。即负载均衡是由服务器端实现。
+  
+  Ribbon 本地负载均衡，在调用微服务接口时，会在注册中心上获取注册信息服务列表之后缓存到JVM本地，从而在本地实现RPC远程服务调用技术。
+
 - 集中式LB
 
   即在服务的消费方和提供方之间独立使用独立的LB设置（可以是硬件，如 F5，也可以是软件，如 Nginx），由该设施负责把访问请求通过某种策略转发至服务的提供方。
@@ -227,7 +233,7 @@ public class PersonController_Customer {
 
 #### 9、总结
 
-**`Ribbon 其实就是一个软负载均衡的客户端组件它可以和其它所需请求的客户端结合使用，和eureka 结合只是其中一个实例。`**
+**`Ribbon 其实就是一个软负载均衡的客户端组件，它可以和其它所需请求的客户端结合使用，和eureka 结合只是其中一个实例。`**
 
 ### 四、[Ribbon 核心组件IRule](https://github.com/Netflix/ribbon/wiki/Working-with-load-balancers )
 
